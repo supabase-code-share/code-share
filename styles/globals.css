@@ -6,6 +6,7 @@ body {
     padding: 0;
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    background-color: #C0C0C0
 }
 
 a {
@@ -15,4 +16,12 @@ a {
 
 * {
     box-sizing: border-box;
+}
+
+#person-pic-div {
+    margin-top: -5.5rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
