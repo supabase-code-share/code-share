@@ -4,8 +4,7 @@ import google from '../public/google.svg'
 import twitter from '../public/twitter.svg'
 
 const Login = () => {
-  return (
-    
+  return (    
     <div className="flex flex-col justify-center h-screen divide-y items-center text-xl" id="login-form-div">
       <div className="bg-white shadow-md px-12 pt-8 pb-8 mb-4 items-center text-center rounded-xl shadow-black">
         <h1 className="text-2xl">Login</h1>
