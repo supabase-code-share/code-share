@@ -1,4 +1,9 @@
+import { Auth } from "@supabase/ui";
 import { GetStaticProps, NextPage } from "next";
+import Footer from "../components/footer";
+import Header from "../components/header";
+import Layout from "../components/Layout";
+import { useAuth } from "../lib/auth";
 import { supabase } from "../utils/supabaseClient";
 
 type Snippet = {
@@ -15,16 +20,30 @@ type props = {
 
 const IndexPage: NextPage<props> = (props) => {
 	const { snippets } = props;
+	const { user, view } = useAuth();
 
 	return (
-		<div className="p-10 flex gap-3">
-			{snippets?.map((snippet) => (
-				<div className="flex flex-col bg-gray-100 w-max p-4" key={snippet.id}>
-					<span className="text-center text-lg">{snippet.title}</span>
-					<code className="bg-gray-400 w-128 text-white p-4 rounded-md">{snippet.code_block}</code>
-					{snippet.description && <span>{snippet.description}</span>}
-				</div>
-			))}
+		<div>
+			{user ? (
+				<>
+					<Header/>
+						<div className="p-10 flex gap-3">
+							{snippets?.map((snippet) => (
+								<div className="flex flex-col bg-gray-100 w-max p-4" key={snippet.id}>
+									<span className="text-center text-lg">{snippet.title}</span>
+									<code className="bg-gray-400 w-128 text-white p-4 rounded-md">{snippet.code_block}</code>
+									{snippet.description && <span>{snippet.description}</span>}
+								</div>
+							))}
+						</div>
+					<Footer/>
+				</>
+			) : (
+				<Layout>
+					{!user && <Auth view={view} supabaseClient={supabase} />}
+				</Layout>
+			)}
+			
 		</div>
 	);
 };
