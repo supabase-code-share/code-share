@@ -1,47 +1,43 @@
-import { Auth } from '@supabase/ui';
-import type { NextPage } from "next";
-import Link from "next/link";
-import { useRouter } from 'next/router';
-import Layout from "../components/Layout";
-import { useAuth, VIEWS } from '../lib/auth';
+import { GetStaticProps, NextPage } from "next";
 import { supabase } from "../utils/supabaseClient";
 
-const Home: NextPage = () => {
+type Snippet = {
+	id: number;
+	title: string;
+	code_block: string;
+	description: string;
+	user_id: string;
+};
 
-	const { user, view, signOut } = useAuth();
+type props = {
+	snippets: Snippet[] | null;
+};
 
-	const router = useRouter()
-
-	const {message} = router.query
-
-	if (view === VIEWS.UPDATE_PASSWORD) {
-		return (
-		  <Layout>
-			<Auth.UpdatePassword supabaseClient={supabase} />
-		  </Layout>
-		);
-	  }
+const IndexPage: NextPage<props> = (props) => {
+	const { snippets } = props;
 
 	return (
-		<Layout>
-			{user && (
-				<>
-				<h2>Welcome!</h2>
-				{message !== "" && (
-					<div className="bg-green-100 rounded-lg py-5 px-6 mb-4 text-base text-green-700" role="alert">{message}</div>
-				)}
-				<Link href="/upload">
-					<a className="button">Create a new snippet</a>
-				</Link>
-				<button type="button" className="button-inverse" onClick={signOut}>
-					Sign Out
-				</button>
-				</>
-			)}
-
-			{!user && <Auth view={view} supabaseClient={supabase} />}
-	  </Layout>
+		<div className="p-10 flex gap-3">
+			{snippets?.map((snippet) => (
+				<div className="flex flex-col bg-gray-100 w-max p-4" key={snippet.id}>
+					<span className="text-center text-lg">{snippet.title}</span>
+					<code className="bg-gray-400 w-128 text-white p-4 rounded-md">{snippet.code_block}</code>
+					{snippet.description && <span>{snippet.description}</span>}
+				</div>
+			))}
+		</div>
 	);
 };
 
-export default Home;
+export const getStaticProps: GetStaticProps<props> = async (context) => {
+	const query = await supabase.from<Snippet>("Snippet").select();
+	const snippets = query.data;
+
+	return {
+		props: {
+			snippets,
+		},
+	};
+};
+
+export default IndexPage;
