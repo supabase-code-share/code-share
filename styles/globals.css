@@ -16,3 +16,7 @@ a {
 * {
     box-sizing: border-box;
 }
+
+#create-snippet-div {
+    margin-top: -5em;
+}
