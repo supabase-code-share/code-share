@@ -56,7 +56,7 @@ const IndexPage: NextPage<props> = (props) => {
 
 
 	let handleLike = () => {
-		setLike()
+		// setLike()
 	}
 
 	return (

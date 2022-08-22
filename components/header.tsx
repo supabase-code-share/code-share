@@ -1,4 +1,5 @@
 import { Auth } from "@supabase/ui";
+// import 'flowbite';
 import dynamic from "next/dynamic";
 import Image from 'next/image';
 import { useAuth } from '../lib/auth';
@@ -38,7 +39,10 @@ export default function Header() {
                                     <a href="/likedSnips" className="block py-2 pr-4 pl-3 text-white bg-teal-600 rounded mt-4 md:mt-0 md:bg-transparent md:p-0 md:text-black">Liked Snips</a>
                                 </li>
                                 <li>
-                                    <button type="button" className="block py-2 pr-4 pl-3 text-white bg-teal-600 rounded mt-4 md:mt-0 md:bg-transparent md:p-0 md:text-black" onClick={signOut}>Logout</button>
+                                    <a href="/yourSnippets" className="block py-2 pr-4 pl-3 text-white bg-teal-600 rounded mt-4 md:mt-0 md:bg-transparent md:p-0 md:text-black">Your Snips</a>
+                                </li>
+                                <li>
+                                    <button type="button" className="block py-2 pr-4 pl-3 text-white bg-teal-600 rounded mt-4 md:-mt-2 md:bg-red-600 md:p-2 md:hover:text-slate-900 md:text-white" onClick={signOut}>Logout</button>
                                 </li> 
                             </ul>
                             </div>
